@@ -4,9 +4,9 @@ import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 /**
- * Reads lines from the given input txt file.
+ * Reads lines from an input file for the given day.
  */
-fun readInput(name: String) = Path("src/$name.txt").readLines()
+fun readInput(day: Int) = Path("input/day%02d.txt".format(day)).readLines()
 
 /**
  * Converts string to md5 hash.
