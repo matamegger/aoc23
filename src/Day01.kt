@@ -1,27 +1,36 @@
+private const val DAY = 1
+
 fun main() {
-    val input = readInput(day = 1)
-    val part1Sum = input.sumOf { line ->
-        line.extractCalibrationValue(
-            { first { it.isDigit() }.digitToInt() },
-            { last { it.isDigit() }.digitToInt() }
-        )
+    fun part1(input: List<String>): Int {
+        return input.sumOf { line ->
+            line.extractCalibrationValue(
+                { first { it.isDigit() }.digitToInt() },
+                { last { it.isDigit() }.digitToInt() }
+            )
+        }
     }
 
-    println("The sum of the calibration values for part 1 is: $part1Sum")
-
-    val part2Sum =
-        input.sumOf { line ->
+    fun part2(input: List<String>): Int {
+        return input.sumOf { line ->
             line.extractCalibrationValue(
                 { getDigit() },
                 { getDigit(true) }
             )
         }
+    }
 
-    println("The sum of the calibration values for part 2 is: $part2Sum")
+    val testInput = readTestInput(DAY)
+    check(part1(testInput) == 142)
+    val testInputPart2 = readTestInput(DAY, 2)
+    check(part2(testInputPart2) == 281)
+
+    val input = readInput(DAY)
+    part1(input).println()
+    part2(input).println()
 }
 
 private fun String.extractCalibrationValue(firstDigit: String.() -> Int, secondDigit: String.() -> Int): Int {
-    return firstDigit(this) * 10 + last { it.isDigit() }.digitToInt()
+    return firstDigit(this) * 10 + secondDigit(this)
 }
 
 private fun String.getDigit(fromEnd: Boolean = false): Int {

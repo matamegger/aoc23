@@ -1,20 +1,31 @@
 private val gameDescriptionMatcher = Regex("Game ([0-9]+): (.+)")
 
+private const val DAY = 2
+
 fun main() {
-    val input = readInput(day = 2)
+    fun part1(input: List<String>): Int {
+        val games = input.map(::parseGame)
+        val gameConfig = mapOf(
+            Color.Red to 12,
+            Color.Green to 13,
+            Color.Blue to 14
+        )
 
-    val games = input.map(::parseGame)
-    val gameConfig = mapOf(
-        Color.Red to 12,
-        Color.Green to 13,
-        Color.Blue to 14
-    )
+        return games.filter { it.isPossible2(gameConfig) }.sumOf { it.id }
+    }
 
-    val sumOfPossibleGameIds = games.filter { it.isPossible2(gameConfig) }.sumOf { it.id }
-    println("Sum of game ids that are possible: $sumOfPossibleGameIds")
+    fun part2(input: List<String>): Int {
+        val games = input.map(::parseGame)
+        return games.sumOf { it.getPower() }
+    }
 
-    val gamePowers = games.sumOf { it.getPower() }
-    println("Sum of game powers: $gamePowers")
+    val testInput = readTestInput(DAY)
+    check(part1(testInput) == 8)
+    check(part2(testInput) == 2286)
+
+    val input = readInput(DAY)
+    part1(input).println()
+    part2(input).println()
 }
 
 private fun parseGame(gameLine: String): Game {
