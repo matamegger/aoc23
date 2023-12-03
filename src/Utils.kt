@@ -9,6 +9,16 @@ import kotlin.io.path.readLines
 fun readInput(day: Int) = Path("input/day%02d.txt".format(day)).readLines()
 
 /**
+ * Reads lines from a test input file for the given day.
+ */
+fun readTestInput(day: Int) =  Path("input/test/day%02d.txt".format(day)).readLines()
+
+/**
+ * Reads lines from a test input file for the given day and part.
+ */
+fun readTestInput(day: Int, part: Int) =  Path("input/test/day%02d-%d.txt".format(day, part)).readLines()
+
+/**
  * Converts string to md5 hash.
  */
 fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray()))
